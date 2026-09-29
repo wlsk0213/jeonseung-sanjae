@@ -1,0 +1,56 @@
+.tvpage{background:#fff;padding:0 0 60px}
+.tvhead{max-width:980px;margin:0 auto;padding:44px 24px 10px}
+.tvhead h1{font-size:26px;font-weight:800;letter-spacing:-.02em;color:#182130}
+.tvhead p{margin-top:10px;color:#6b7686;font-size:15px}
+
+.tv{max-width:980px;margin:36px auto;padding:0 24px}
+.tvlabel{display:flex;flex-direction:column;gap:6px;padding:0 0 12px}
+.tvlabel b{font-size:18px;color:#182130}
+.tvlabel span{font-size:14px;color:#6b7686}
+.tvchips{display:flex;align-items:center;gap:10px;font-size:12.5px;color:#8d97a5;font-variant-numeric:tabular-nums}
+.tvchips i{display:inline-block;width:16px;height:16px;border-radius:4px}
+
+.tvdemo{border:1px solid #d4d9e0;border-radius:10px;overflow:hidden;background:var(--bg);font-size:17px;line-height:1.9}
+
+/* nav */
+.tvnav{display:flex;align-items:center;justify-content:space-between;gap:16px;background:#fff;border-bottom:1px solid rgba(0,0,0,.08);padding:14px 22px}
+.tvlogo{font-weight:800;font-size:18px;color:var(--m);letter-spacing:-.01em}
+.tvlogo em{font-style:normal;font-size:12px;color:#8d97a5;margin-left:6px;letter-spacing:.06em}
+.tvmenu{display:flex;gap:18px;font-size:14px;color:#3d4756}
+.tvbtn{background:var(--m);color:#fff;font-weight:700;font-size:13.5px;padding:9px 16px;border-radius:6px}
+
+/* hero */
+.tvhero{background:var(--m);color:#fff;padding:44px 28px 40px;text-align:center}
+.tveyebrow{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.06em;color:#fff;background:rgba(255,255,255,.16);border-radius:999px;padding:6px 14px}
+.tvhero h2{margin-top:16px;font-size:30px;line-height:1.35;font-weight:800;letter-spacing:-.025em}
+.tvhero h2 b{color:var(--ac);font-weight:800}
+.tvhero p{max-width:620px;margin:16px auto 0;font-size:16px;line-height:1.85;color:rgba(255,255,255,.86)}
+.tvcta{display:flex;justify-content:center;gap:10px;margin-top:24px}
+.tvbtn-main{background:#fff;color:var(--m);font-weight:800;font-size:16px;padding:14px 22px;border-radius:8px}
+.tvbtn-ghost{color:#fff;font-weight:600;font-size:16px;padding:14px 22px;border-radius:8px;border:1px solid rgba(255,255,255,.5)}
+
+/* body */
+.tvbody{padding:38px 28px 34px}
+.tvbody h3{font-size:21px;font-weight:800;color:var(--m);letter-spacing:-.02em}
+.tvgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+.tvcard{background:#fff;border:1px solid rgba(0,0,0,.1);border-radius:8px;padding:18px 20px;display:flex;flex-direction:column;gap:4px}
+.tvcard b{font-size:16.5px;color:var(--m)}
+.tvcard span{font-size:14px;color:#6b7686;line-height:1.6}
+
+.tvtext{margin-top:34px}
+.tvtext h4{font-size:19px;font-weight:800;color:#182130;letter-spacing:-.02em}
+.tvtext p{margin-top:12px;color:#2c3546}
+.tvbox{margin-top:18px;background:#fff;border-left:4px solid var(--ac);border-radius:0 8px 8px 0;padding:16px 20px}
+.tvbox b{color:var(--m);font-size:16px}
+.tvbox ul{margin:8px 0 0;padding-left:20px;color:#2c3546;font-size:16px}
+
+.tvband{margin-top:34px;background:var(--m);color:#fff;border-radius:10px;padding:30px 24px;text-align:center}
+.tvband b{display:block;font-size:21px;font-weight:800;letter-spacing:-.02em}
+.tvband > span{display:block;margin-top:8px;font-size:15px;color:rgba(255,255,255,.82)}
+.tvband-cta{display:flex;justify-content:center;gap:10px;margin-top:18px}
+
+@media (max-width:760px){
+  .tvmenu{display:none}
+  .tvgrid{grid-template-columns:1fr}
+  .tvhero h2{font-size:24px}
+}
