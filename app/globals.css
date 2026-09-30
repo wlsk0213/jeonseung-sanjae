@@ -192,3 +192,41 @@ footer .wrap{display:block;padding:44px 24px 48px}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.topic-card,.pcard{transition:none}}
 @media (max-width:900px){.topic-grid,.job-grid{grid-template-columns:repeat(2,1fr)}.step-grid{grid-template-columns:repeat(2,1fr)}.post-grid{grid-template-columns:1fr}}
 @media (max-width:560px){.topic-grid,.job-grid,.step-grid{grid-template-columns:1fr}}
+
+/* ── 블로그형 첫 화면 (2026-09-30) ───────────────────────── */
+.blog-head{background:var(--white);border-bottom:1px solid var(--line)}
+.blog-head .wrap{padding:44px 24px 34px}
+.blog-head .eyebrow{font-size:13.5px;font-weight:700;letter-spacing:.04em;color:var(--ac-deep)}
+.blog-head h1{font-size:clamp(24px,3.4vw,34px);font-weight:800;letter-spacing:-.02em;line-height:1.3;margin-top:10px;color:var(--c-800);text-wrap:balance}
+.blog-head .lede{max-width:760px;margin-top:12px;color:var(--mute);font-size:16px;line-height:1.8}
+.blog-layout{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:48px;padding-top:40px;padding-bottom:64px;align-items:start}
+.feed-h{font-size:20px;font-weight:800;letter-spacing:-.02em;color:var(--c-800);padding-bottom:12px;border-bottom:2px solid var(--c-800);display:flex;align-items:baseline;gap:8px}
+.feed-h span{font-size:14px;font-weight:600;color:var(--mute)}
+.feed-item{padding:26px 0;border-bottom:1px solid var(--line)}
+.feed-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;font-size:13px;color:var(--mute-2);font-variant-numeric:tabular-nums}
+.feed-topic{font-size:12px;font-weight:700;letter-spacing:.03em;color:var(--ac-deep);background:var(--ac-soft);border-radius:4px;padding:3px 8px}
+.feed-topic.alt{color:var(--mute);background:var(--bg)}
+.feed-item h3{font-size:21px;font-weight:800;line-height:1.4;letter-spacing:-.015em;margin-top:10px;color:var(--c-800)}
+.feed-item h3 a:hover{color:var(--ac-deep)}
+.feed-item p{margin-top:10px;color:var(--mute);font-size:15.5px;line-height:1.8;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.feed-more{display:inline-block;margin-top:12px;font-size:14px;font-weight:700;color:var(--ac-deep)}
+.side{display:flex;flex-direction:column;gap:18px;position:sticky;top:88px}
+.side-card{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:20px 20px 18px}
+.side-card>b{display:block;font-size:15.5px;font-weight:800;color:var(--c-800);margin-bottom:12px}
+.side-card p{font-size:14px;color:var(--mute);line-height:1.7}
+.side-cta{background:var(--c-800);color:#fff;border-color:var(--c-800)}
+.side-cta>b{color:#fff}
+.side-cta p{color:rgba(255,255,255,.82);margin-bottom:14px}
+.side-cta .btn-main,.side-cta .btn-ghost{display:block;text-align:center;margin-top:8px}
+.side-list{list-style:none;display:flex;flex-direction:column}
+.side-list li{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px dashed var(--line);font-size:14.5px}
+.side-list li:last-child{border-bottom:0}
+.side-list li a:hover{color:var(--ac-deep)}
+.side-list li span{font-size:12px;font-weight:700;color:var(--ac-deep);background:var(--ac-soft);border-radius:999px;padding:1px 8px}
+.side-steps{list-style:none;display:flex;flex-direction:column;gap:8px;font-size:14.5px}
+.side-steps li{display:flex;align-items:center;gap:10px}
+.side-steps li span{width:22px;height:22px;border-radius:50%;background:var(--c-800);color:#fff;font-size:12px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;flex:none}
+.side-card .more-link{display:inline-block;margin-top:12px;font-size:14px}
+.side-family{border-left:5px solid var(--ac)}
+.side-family .btn-nav{display:inline-block;margin-top:10px}
+@media (max-width:960px){.blog-layout{grid-template-columns:1fr;gap:32px;padding-top:28px}.side{position:static}.feed-item h3{font-size:19px}}

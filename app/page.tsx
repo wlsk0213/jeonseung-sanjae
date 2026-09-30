@@ -1,166 +1,153 @@
 import Link from 'next/link';
-import { getAllPosts, diseaseTopics, jobs, site, fmtDate, topicLabel, postsByTopic } from '@/lib/posts';
+import { getAllPosts, diseaseTopics, topics, jobs, site, fmtDate, topicLabel, postsByTopic, postsByJob } from '@/lib/posts';
 
-const steps = [
-  { n: '1', t: '병명과 하신 일 확인', d: '진단명과 증상이 시작된 시기, 어느 사업장에서 어떤 작업을 얼마나 했는지부터 정리합니다.' },
-  { n: '2', t: '기록 모으기', d: '4대보험 이력, 근태·작업 기록, 작업환경측정·건강진단 결과, 동료 진술을 모읍니다.' },
-  { n: '3', t: '공단에 청구', d: '요양·휴업·장해·유족급여 중 해당 급여를 근로복지공단에 청구합니다. 회사 동의는 필요하지 않습니다.' },
-  { n: '4', t: '조사와 심의', d: '공단 조사와, 질병이면 업무상질병판정위원회 심의를 거칩니다. 이때 자료를 보강할 수 있습니다.' },
-  { n: '5', t: '결정 뒤 대응', d: '불승인이면 90일 안에 심사청구·재심사청구를, 승인이면 급여 지급과 장해등급을 확인합니다.' },
+/** 글이 쌓이기 전에도 첫 화면이 비지 않도록, 안내 페이지를 '안내' 항목으로 함께 목록에 넣는다. */
+const guides = [
+  { href: '/guide/', badge: '안내', title: '산재가 처음이신가요? — 산재 여부, 첫 할 일, 급여 종류, 기한', desc: '산재인지 아닌지부터 청구 기한, 혼자 할 수 있는지까지 질문별로 정리했습니다.' },
+  { href: '/family/', badge: '유족', title: '가족을 잃으셨다면 — 지금 남겨 둘 것과 유족급여·장례비 청구', desc: '장례를 치르는 동안 무엇을 남겨 두어야 하는지, 누가 어떻게 청구하는지, 회사가 협조하지 않을 때의 대응.' },
+  { href: '/cases/', badge: '사례', title: '산재 보상 승인 사례 — 어떤 자료로 인정됐나', desc: '공단·법원의 공개 사례와 저희가 다룬 사건 유형을 상병별로 모았습니다.' },
 ];
 
 export default function Home() {
-  const posts = getAllPosts().slice(0, 6);
+  const posts = getAllPosts();
+  const steps = [
+    { n: '1', t: '병명과 하신 일 확인' },
+    { n: '2', t: '기록 모으기' },
+    { n: '3', t: '공단에 청구' },
+    { n: '4', t: '조사와 심의' },
+    { n: '5', t: '결정 뒤 대응' },
+  ];
   return (
     <main>
-      <section className="hero">
+      <section className="blog-head">
         <div className="wrap">
-          <div className="eyebrow">노무법인 전승 · 산재보상전문센터</div>
-          <h1>
-            일하다 생긴 병인지,
-            <br />
-            <b>먼저 확인해 드립니다</b>
-          </h1>
+          <p className="eyebrow">노무법인 전승 · 산재보상전문센터</p>
+          <h1>일하다 생긴 병인지, 먼저 확인해 드립니다</h1>
           <p className="lede">
-            산재인지 아닌지부터 판단이 갈립니다. 병명과 하신 일을 알려 주시면 인정 가능성과 준비할 자료를 짚어
-            드립니다.
+            산재 인정기준과 청구 절차, 유족급여, 불승인 대응을 법령·고용노동부 매뉴얼 원문과 공개 판례에 맞춰
+            씁니다. 병명이나 하시던 일로 찾아보시고, 막히는 부분은 상담으로 물어보십시오.
           </p>
-          <div className="hero-cta">
-            <Link className="btn-main" href="/topics/">
-              내 병으로 찾아보기
-            </Link>
-            <Link className="btn-ghost" href="/family/">
-              가족이 일하다 돌아가셨다면
-            </Link>
-          </div>
-          <div className="hero-pick" aria-label="자주 찾는 상병">
-            {diseaseTopics.slice(0, 4).map((t) => (
-              <Link key={t.id} href={`/topics/${t.id}/`}>
-                {t.label}
-              </Link>
-            ))}
-          </div>
         </div>
       </section>
 
-      <section className="sec">
-        <div className="wrap">
-          <h2 className="sec-h">내 병은 어디에 해당하나요?</h2>
-          <p className="sec-sub">같은 산재라도 상병에 따라 인정기준과 모아야 할 자료가 다릅니다.</p>
-          <div className="topic-grid">
-            {diseaseTopics.map((t) => {
-              const n = postsByTopic(t.id).length;
-              return (
-                <Link className="topic-card" key={t.id} href={`/topics/${t.id}/`}>
-                  <span className="topic-name">{t.label}</span>
-                  <span className="topic-lead">{t.lead}</span>
-                  {n > 0 && <span className="topic-count">글 {n}편</span>}
+      <div className="wrap blog-layout">
+        <div className="feed">
+          <h2 className="feed-h">
+            최근 글 <span>{posts.length}편</span>
+          </h2>
+          {posts.length === 0 && <p className="empty">글을 준비하고 있습니다.</p>}
+          {posts.map((p) => (
+            <article className="feed-item" key={p.slug}>
+              <div className="feed-meta">
+                <Link className="feed-topic" href={`/topics/${p.topic}/`}>
+                  {topicLabel(p.topic)}
                 </Link>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      <section className="sec sec-alt">
-        <div className="wrap">
-          <h2 className="sec-h">어떤 일을 하셨나요?</h2>
-          <p className="sec-sub">병명이 아니라 직업으로 찾아오는 분도 많습니다. 직종마다 자주 문제 되는 상병이 다릅니다.</p>
-          <div className="job-grid">
-            {jobs.map((j) => (
-              <Link className="topic-card" key={j.id} href={`/jobs/${j.id}/`}>
-                <span className="topic-name">{j.label}</span>
-                <span className="topic-lead">{j.lead}</span>
-                <span className="chips">
-                  {j.topics.slice(0, 3).map((id) => (
-                    <span key={id}>{topicLabel(id)}</span>
-                  ))}
-                </span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="sec">
-        <div className="wrap">
-          <div className="family-band">
-            <div>
-              <h3>가족을 잃으셨다면</h3>
-              <p>
-                장례를 치르는 동안 무엇을 남겨 두어야 하는지, 유족급여와 장례비는 누가 어떻게 청구하는지, 회사가
-                협조하지 않을 때는 어떻게 하는지를 따로 정리했습니다.
-              </p>
-            </div>
-            <Link className="btn-nav" href="/family/">
-              유족 가이드 보기
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="sec sec-alt">
-        <div className="wrap">
-          <h2 className="sec-h">산재 신청은 이 순서로 갑니다</h2>
-          <p className="sec-sub">처음이시면 「산재가 처음이신가요?」에서 질문별로 확인하실 수 있습니다.</p>
-          <div className="step-grid">
-            {steps.map((s) => (
-              <div className="step-card" key={s.n}>
-                <span className="step-n">{s.n}</span>
-                <b>{s.t}</b>
-                <p>{s.d}</p>
+                <time dateTime={p.date}>{fmtDate(p.date)}</time>
+                <span>약 {p.readingMin}분</span>
               </div>
-            ))}
-          </div>
-          <Link className="more-link" href="/guide/">
-            산재가 처음이신가요? — 질문별 안내 →
-          </Link>
-        </div>
-      </section>
+              <h3>
+                <Link href={`/posts/${p.slug}/`}>{p.title}</Link>
+              </h3>
+              <p>{p.description}</p>
+              <Link className="feed-more" href={`/posts/${p.slug}/`}>
+                계속 읽기 →
+              </Link>
+            </article>
+          ))}
 
-      <section className="sec">
-        <div className="wrap">
-          <h2 className="sec-h">최근 글</h2>
-          <p className="sec-sub">법령·고용노동부 매뉴얼 원문과 공개 판례를 대조해 씁니다.</p>
-          {posts.length === 0 ? (
-            <p className="empty">글을 준비하고 있습니다.</p>
-          ) : (
-            <div className="post-grid">
-              {posts.map((p) => (
-                <Link className="pcard" key={p.slug} href={`/posts/${p.slug}/`}>
-                  <span className="pcard-topic">{topicLabel(p.topic)}</span>
-                  <b className="pcard-title">{p.title}</b>
-                  <span className="pcard-desc">{p.description}</span>
-                  <span className="pcard-meta">
-                    {fmtDate(p.date)} · 약 {p.readingMin}분
-                  </span>
-                </Link>
-              ))}
-            </div>
-          )}
-          <Link className="more-link" href="/posts/">
-            전체 글 보기 →
-          </Link>
+          <h2 className="feed-h" style={{ marginTop: 40 }}>
+            안내 페이지
+          </h2>
+          {guides.map((g) => (
+            <article className="feed-item" key={g.href}>
+              <div className="feed-meta">
+                <span className="feed-topic alt">{g.badge}</span>
+              </div>
+              <h3>
+                <Link href={g.href}>{g.title}</Link>
+              </h3>
+              <p>{g.desc}</p>
+              <Link className="feed-more" href={g.href}>
+                보기 →
+              </Link>
+            </article>
+          ))}
         </div>
-      </section>
 
-      <section className="cta-band">
-        <div className="wrap">
-          <h2>병명과 하신 일을 알려 주세요.</h2>
-          <p>산재인지 아닌지, 무엇을 준비해야 하는지를 첫 상담에서 짚어 드립니다.</p>
-          <div className="cta-row">
+        <aside className="side">
+          <div className="side-card side-cta">
+            <b>지금은 서류를 다 갖추지 않으셔도 됩니다</b>
+            <p>병명과 하시던 일, 지금 상황을 알려 주시면 무엇부터 확인해야 하는지 짚어 드립니다.</p>
             <a className="btn-main" href={`tel:${site.tel}`}>
               {site.tel}
             </a>
             <a className="btn-ghost" href={site.kakao} target="_blank" rel="noopener">
               카카오톡 상담
             </a>
-            <Link className="btn-ghost" href="/contact/">
-              상담 안내 보기
+          </div>
+
+          <div className="side-card">
+            <b>상병별로 찾기</b>
+            <ul className="side-list">
+              {diseaseTopics.map((t) => {
+                const n = postsByTopic(t.id).length;
+                return (
+                  <li key={t.id}>
+                    <Link href={`/topics/${t.id}/`}>{t.label}</Link>
+                    {n > 0 && <span>{n}</span>}
+                  </li>
+                );
+              })}
+              {topics
+                .filter((t) => t.kind === 'process')
+                .map((t) => (
+                  <li key={t.id}>
+                    <Link href={`/topics/${t.id}/`}>{t.label}</Link>
+                    {postsByTopic(t.id).length > 0 && <span>{postsByTopic(t.id).length}</span>}
+                  </li>
+                ))}
+            </ul>
+          </div>
+
+          <div className="side-card">
+            <b>직종별로 찾기</b>
+            <ul className="side-list">
+              {jobs.map((j) => {
+                const n = postsByJob(j.id).length;
+                return (
+                  <li key={j.id}>
+                    <Link href={`/jobs/${j.id}/`}>{j.label}</Link>
+                    {n > 0 && <span>{n}</span>}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+
+          <div className="side-card">
+            <b>산재 신청 순서</b>
+            <ol className="side-steps">
+              {steps.map((s) => (
+                <li key={s.n}>
+                  <span>{s.n}</span>
+                  {s.t}
+                </li>
+              ))}
+            </ol>
+            <Link className="more-link" href="/guide/">
+              질문별 안내 보기 →
             </Link>
           </div>
-        </div>
-      </section>
+
+          <div className="side-card side-family">
+            <b>가족을 잃으셨다면</b>
+            <p>유족급여·장례비 청구와 지금 남겨 둘 것을 따로 정리했습니다.</p>
+            <Link className="btn-nav" href="/family/">
+              유족 가이드
+            </Link>
+          </div>
+        </aside>
+      </div>
     </main>
   );
 }
