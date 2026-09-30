@@ -47,9 +47,7 @@ export default async function TopicPage({ params }: { params: Promise<{ slug: st
       </div>
       <section className="sec">
         <div className="wrap">
-          {posts.length === 0 ? (
-            <p className="empty">이 상병의 안내 글을 준비하고 있습니다. 상담은 지금도 가능합니다 — {site.tel}</p>
-          ) : (
+          {posts.length > 0 && (
             <div className="post-grid">
               {posts.map((p) => (
                 <Link className="pcard" key={p.slug} href={`/posts/${p.slug}/`}>
@@ -61,6 +59,33 @@ export default async function TopicPage({ params }: { params: Promise<{ slug: st
                 </Link>
               ))}
             </div>
+          )}
+          {t.reads && t.reads.length > 0 && (
+            <div style={{ marginTop: posts.length > 0 ? 40 : 0 }}>
+              <h2 className="sec-h" style={{ fontSize: 20 }}>
+                {posts.length > 0 ? '함께 읽을 글' : '먼저 읽을 글'}
+              </h2>
+              <p className="sec-sub">법령·고용노동부 자료 원문과 공개 판례를 대조해 쓴 글입니다.</p>
+              <ul className="read-list">
+                {t.reads.map((r) => (
+                  <li key={r.href}>
+                    {r.href.startsWith('/') ? (
+                      <Link href={r.href}>{r.title}</Link>
+                    ) : (
+                      <a href={r.href} target="_blank" rel="noopener">
+                        {r.title} ↗
+                      </a>
+                    )}
+                    <span>{r.where}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {posts.length === 0 && (
+            <p className="empty" style={{ marginTop: 24 }}>
+              이 상병만 다룬 글은 준비 중입니다. 병명과 하시던 일을 알려 주시면 인정 가능성과 먼저 모을 자료를 상담에서 짚어 드립니다 — {site.tel}
+            </p>
           )}
           {relJobs.length > 0 && (
             <div style={{ marginTop: 40 }}>

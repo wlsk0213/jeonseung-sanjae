@@ -22,26 +22,88 @@ export interface Post {
   readingMin: number;
 }
 
+export interface TopicRead {
+  title: string;
+  href: string; // 절대 URL(홈페이지·블로그) 또는 이 사이트 내부 경로
+  where: string; // 표시용 출처(홈페이지 인사이트 / 개인 블로그 / 이 사이트)
+}
 export interface Topic {
   id: string;
   label: string;
   lead: string;
   kind: 'disease' | 'process';
   jobs: string[]; // 이 상병이 많은 직종 id
+  reads?: TopicRead[]; // 이 상병을 다룬, 법령 검토를 거친 글(사이트에 글이 쌓이기 전에도 빈 페이지가 되지 않게)
 }
+
+const FIRM = 'https://jeonseung.co.kr';
+const BLOG = 'https://blog.jinanomu.com';
+const R_FAMILY: TopicRead = { title: '가족을 잃으셨다면 — 유족급여·장례비 청구와 지금 남겨 둘 것', href: '/family/', where: '이 사이트' };
+const R_DEATH: TopicRead = { title: '산재 사망 유족급여·장의비 청구 방법 — 신청 절차와 청구기한', href: `${BLOG}/sanjae-death-survivor-benefit/`, where: '개인 블로그' };
+const R_FIRST: TopicRead = { title: '산재가 처음이신가요? — 산재 여부, 첫 할 일, 급여 종류, 기한', href: '/guide/', where: '이 사이트' };
 
 /** 메뉴 2 「내 병은 어디에 해당하나요?」 — 상병 8 + 절차 2. 글의 topic은 여기 id와 일치해야 한다. */
 export const topics: Topic[] = [
-  { id: 'cardio', label: '과로성 질병(뇌심혈관)', lead: '뇌출혈·뇌경색·심근경색, 발병 전 업무시간과 가중요인', kind: 'disease', jobs: ['transport', 'cleaning', 'office', 'manufacturing'] },
-  { id: 'mental', label: '정신질환·자살', lead: '적응장애·우울증, 업무상 스트레스와 자살의 업무관련성', kind: 'disease', jobs: ['office', 'care'] },
-  { id: 'cancer', label: '직업성 암', lead: '폐암·백혈병, 어떤 물질에 얼마나 노출됐는지', kind: 'disease', jobs: ['construction', 'manufacturing', 'cooking'] },
-  { id: 'lung', label: '폐질환·진폐', lead: '진폐·만성폐쇄성폐질환, 분진 노출 이력', kind: 'disease', jobs: ['construction', 'manufacturing'] },
-  { id: 'hearing', label: '소음성 난청', lead: '85데시벨·3년 기준, 퇴직 후에도 청구하는 장해급여', kind: 'disease', jobs: ['manufacturing', 'construction'] },
-  { id: 'musculoskeletal', label: '근골격계 질환', lead: '어깨·허리·무릎, 반복 동작과 중량물 취급', kind: 'disease', jobs: ['care', 'construction', 'manufacturing', 'cleaning', 'cooking'] },
-  { id: 'accident', label: '업무상 사고', lead: '사고 직후 남겨야 할 기록과 신청 순서', kind: 'disease', jobs: ['construction', 'manufacturing', 'transport', 'cleaning'] },
-  { id: 'commute', label: '출퇴근 재해', lead: '통상적인 경로와 방법, 경로 일탈의 판단', kind: 'disease', jobs: ['transport', 'office', 'care'] },
-  { id: 'benefit', label: '보험급여·장해등급', lead: '요양·휴업·장해·유족급여, 무엇을 얼마나 받나', kind: 'process', jobs: [] },
-  { id: 'appeal', label: '불승인 대응', lead: '심사청구·재심사청구·행정소송, 90일 기한', kind: 'process', jobs: [] },
+  {
+    id: 'cardio', label: '과로성 질병(뇌심혈관)', lead: '뇌출혈·뇌경색·심근경색, 발병 전 업무시간과 가중요인', kind: 'disease', jobs: ['transport', 'cleaning', 'office', 'manufacturing'],
+    reads: [
+      { title: '뇌출혈·심근경색 산재, 주 60시간 미만이면 인정받기 어렵나요?', href: `${FIRM}/insights/noesimhyeolgwan-sanjae-geunrosigan/`, where: '홈페이지 인사이트' },
+      R_DEATH,
+      R_FAMILY,
+    ],
+  },
+  {
+    id: 'mental', label: '정신질환·자살', lead: '적응장애·우울증, 업무상 스트레스와 자살의 업무관련성', kind: 'disease', jobs: ['office', 'care'],
+    reads: [
+      { title: '퇴직 압박으로 생긴 우울증·적응장애, 괴롭힘이 아니어도 산재가 되나요?', href: `${FIRM}/insights/jeongsin-jilhwan-sanjae-toejik-apbak/`, where: '홈페이지 인사이트' },
+      R_FAMILY,
+    ],
+  },
+  {
+    id: 'cancer', label: '직업성 암', lead: '폐암·백혈병, 어떤 물질에 얼마나 노출됐는지', kind: 'disease', jobs: ['construction', 'manufacturing', 'cooking'],
+    reads: [
+      { title: '직업성 암 산재 인정기준 — 폐암·백혈병, 어떤 노출이 인정되나', href: `${FIRM}/insights/jikeopseong-am-sanjae-injeong-gijun/`, where: '홈페이지 인사이트' },
+      R_DEATH,
+    ],
+  },
+  {
+    id: 'lung', label: '폐질환·진폐', lead: '진폐·만성폐쇄성폐질환, 분진 노출 이력', kind: 'disease', jobs: ['construction', 'manufacturing'],
+    reads: [
+      { title: '직업성 암 산재 인정기준 — 노출 이력을 시간 순서로 정리하는 방법은 폐질환에도 같습니다', href: `${FIRM}/insights/jikeopseong-am-sanjae-injeong-gijun/`, where: '홈페이지 인사이트' },
+      R_FIRST,
+    ],
+  },
+  {
+    id: 'hearing', label: '소음성 난청', lead: '85데시벨·3년 기준, 퇴직 후에도 청구하는 장해급여', kind: 'disease', jobs: ['manufacturing', 'construction'],
+    reads: [
+      { title: '소음성 난청 산재, 퇴직하고 몇 년이 지나도 장해급여를 받을 수 있나요?', href: `${BLOG}/noise-induced-hearing-loss-disability-benefit/`, where: '개인 블로그' },
+    ],
+  },
+  {
+    id: 'musculoskeletal', label: '근골격계 질환', lead: '어깨·허리·무릎, 반복 동작과 중량물 취급', kind: 'disease', jobs: ['care', 'construction', 'manufacturing', 'cleaning', 'cooking'],
+    reads: [R_FIRST],
+  },
+  {
+    id: 'accident', label: '업무상 사고', lead: '사고 직후 남겨야 할 기록과 신청 순서', kind: 'disease', jobs: ['construction', 'manufacturing', 'transport', 'cleaning'],
+    reads: [R_FIRST, R_FAMILY],
+  },
+  {
+    id: 'commute', label: '출퇴근 재해', lead: '통상적인 경로와 방법, 경로 일탈의 판단', kind: 'disease', jobs: ['transport', 'office', 'care'],
+    reads: [R_FIRST],
+  },
+  {
+    id: 'benefit', label: '보험급여·장해등급', lead: '요양·휴업·장해·유족급여, 무엇을 얼마나 받나', kind: 'process', jobs: [],
+    reads: [
+      { title: '산재 보상에는 어떤 급여가 있고 얼마나 받나 — 산재 가이드 3·4절', href: '/guide/#benefits', where: '이 사이트' },
+      R_DEATH,
+    ],
+  },
+  {
+    id: 'appeal', label: '불승인 대응', lead: '심사청구·재심사청구·행정소송, 90일 기한', kind: 'process', jobs: [],
+    reads: [
+      { title: '산재 불승인 통지를 받았다면 — 90일 안에 해야 할 일', href: `${FIRM}/insights/sanjae-bulseungin-90il/`, where: '홈페이지 인사이트' },
+    ],
+  },
 ];
 
 export const diseaseTopics = topics.filter((t) => t.kind === 'disease');

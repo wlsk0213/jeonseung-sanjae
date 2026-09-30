@@ -32,7 +32,7 @@ export default function TopicsPage() {
                 <Link className="topic-card" key={t.id} href={`/topics/${t.id}/`}>
                   <span className="topic-name">{t.label}</span>
                   <span className="topic-lead">{t.lead}</span>
-                  <span className="topic-count">{n > 0 ? `글 ${n}편` : '안내 준비 중'}</span>
+                  <span className="topic-count">{n > 0 ? `글 ${n}편` : '안내 보기'}</span>
                 </Link>
               );
             })}
@@ -47,7 +47,7 @@ export default function TopicsPage() {
                 <Link className="topic-card" key={t.id} href={`/topics/${t.id}/`}>
                   <span className="topic-name">{t.label}</span>
                   <span className="topic-lead">{t.lead}</span>
-                  <span className="topic-count">{n > 0 ? `글 ${n}편` : '안내 준비 중'}</span>
+                  <span className="topic-count">{n > 0 ? `글 ${n}편` : '안내 보기'}</span>
                 </Link>
               );
             })}

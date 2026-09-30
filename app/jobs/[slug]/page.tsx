@@ -61,7 +61,7 @@ export default async function JobPage({ params }: { params: Promise<{ slug: stri
             관련 글
           </h2>
           {posts.length === 0 ? (
-            <p className="empty">이 직종의 안내 글을 준비하고 있습니다. 상담은 지금도 가능합니다 — {site.tel}</p>
+            <p className="empty">이 직종만 다룬 글은 준비 중입니다. 위의 상병별 안내에서 해당하는 병을 먼저 보시고, 하시던 일과 병명을 알려 주시면 상담에서 인정 가능성을 짚어 드립니다 — {site.tel}</p>
           ) : (
             <div className="post-grid">
               {posts.map((p) => (
