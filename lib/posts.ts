@@ -47,6 +47,7 @@ export const topics: Topic[] = [
   {
     id: 'cardio', label: '과로성 질병(뇌심혈관)', lead: '뇌출혈·뇌경색·심근경색, 발병 전 업무시간과 가중요인', kind: 'disease', jobs: ['transport', 'cleaning', 'office', 'manufacturing'],
     reads: [
+      { title: '출퇴근 기록이 없는데 과로 산재가 되나요? — 뇌출혈·심근경색 업무시간을 다시 세우는 방법', href: '/posts/overwork-stroke-work-hours-no-records/', where: '이 사이트' },
       { title: '뇌출혈·심근경색 산재, 주 60시간 미만이면 인정받기 어렵나요?', href: `${FIRM}/insights/noesimhyeolgwan-sanjae-geunrosigan/`, where: '홈페이지 인사이트' },
       R_DEATH,
       R_FAMILY,
@@ -94,6 +95,7 @@ export const topics: Topic[] = [
   {
     id: 'benefit', label: '보험급여·장해등급', lead: '요양·휴업·장해·유족급여, 무엇을 얼마나 받나', kind: 'process', jobs: [],
     reads: [
+      { title: '혼인신고를 안 했거나 따로 살았다면 — 산재 유족급여는 누가 받나요?', href: '/posts/survivor-benefit-de-facto-spouse-separated-parents/', where: '이 사이트' },
       { title: '산재 보상에는 어떤 급여가 있고 얼마나 받나 — 산재 가이드 3·4절', href: '/guide/#benefits', where: '이 사이트' },
       R_DEATH,
     ],

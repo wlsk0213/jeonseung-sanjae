@@ -129,7 +129,8 @@ export default function FamilyPage() {
             <p>
               청구 절차와 준비 자료, 불승인 뒤 90일 기한까지는{' '}
               <a href={`${site.blogUrl}/sanjae-death-survivor-benefit/`}>산재 사망 유족급여·장례비 청구 방법</a>에
-              자세히 정리해 두었습니다.
+              자세히 정리해 두었습니다. 혼인신고를 하지 않은 배우자나 따로 살던 부모·자녀가 받을 수 있는지, 유족 사이에 순위가 다투어질 때의 절차는{' '}
+              <Link href="/posts/survivor-benefit-de-facto-spouse-separated-parents/">혼인신고를 안 했거나 따로 살았다면 — 산재 유족급여는 누가 받나요?</Link>에서 설명합니다.
             </p>
 
             <h2>회사가 협조하지 않을 때</h2>
