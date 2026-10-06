@@ -82,7 +82,10 @@ export const topics: Topic[] = [
   },
   {
     id: 'musculoskeletal', label: '근골격계 질환', lead: '어깨·허리·무릎, 반복 동작과 중량물 취급', kind: 'disease', jobs: ['care', 'construction', 'manufacturing', 'cleaning', 'cooking'],
-    reads: [R_FIRST],
+    reads: [
+      { title: '형틀목공 회전근개 파열, 퇴행성이라는데 산재가 되나요? — 여러 현장의 작업 경력 입증', href: '/posts/formwork-carpenter-rotator-cuff-tear/', where: '이 사이트' },
+      R_FIRST,
+    ],
   },
   {
     id: 'accident', label: '업무상 사고', lead: '사고 직후 남겨야 할 기록과 신청 순서', kind: 'disease', jobs: ['construction', 'manufacturing', 'transport', 'cleaning'],
