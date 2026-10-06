@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getAllPosts, getPost, postsByTopic, fmtDate, topicLabel, site } from '@/lib/posts';
+import { personBase } from '@/lib/person';
 
 export function generateStaticParams() {
   return getAllPosts().map((p) => ({ slug: p.slug }));
@@ -38,13 +39,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
     articleSection: topicLabel(p.topic),
     keywords: p.keywords.join(', '),
     mainEntityOfPage: url,
-    author: {
-      '@type': 'Person',
-      name: '전지나',
-      jobTitle: '대표 공인노무사',
-      url: `${site.firmUrl}/members/`,
-      worksFor: { '@type': 'LegalService', name: site.firm, url: site.firmUrl },
-    },
+    author: personBase,
     publisher: { '@type': 'Organization', name: site.name, url: site.url, parentOrganization: { '@type': 'Organization', name: site.firm, url: site.firmUrl } },
   };
   const crumbJsonLd = {

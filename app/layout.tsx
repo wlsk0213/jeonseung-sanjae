@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import Link from 'next/link';
 import './globals.css';
 import { site, menus, diseaseTopics, jobs } from '@/lib/posts';
+import { personBase } from '@/lib/person';
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -39,14 +40,7 @@ const orgJsonLd = {
   },
   areaServed: '대한민국',
   serviceType: ['산재 최초 청구', '유족급여·장례비 청구', '장해급여 청구', '산재 불승인 심사청구·재심사청구', '직업성 암·소음성 난청·근골격계 질환·뇌심혈관 질환 산재'],
-  founder: {
-    '@type': 'Person',
-    name: '전지나',
-    jobTitle: '대표 공인노무사',
-    url: `${site.firmUrl}/members/`,
-    worksFor: { '@type': 'LegalService', name: site.firm, url: site.firmUrl },
-    sameAs: [`${site.firmUrl}/members/`, site.blogUrl],
-  },
+  founder: personBase,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
