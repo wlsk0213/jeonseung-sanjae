@@ -77,6 +77,8 @@ export const topics: Topic[] = [
   {
     id: 'hearing', label: '소음성 난청', lead: '85데시벨·3년 기준, 퇴직 후에도 청구하는 장해급여', kind: 'disease', jobs: ['manufacturing', 'construction'],
     reads: [
+      { title: '프레스·단조 작업 후 난청, 소음 기록은 어디서 찾나요? — 충격소음과 산재 입증자료', href: '/posts/press-forging-impulse-noise-hearing-loss-records/', where: '이 사이트' },
+      { title: '소음성 난청 산재 인정기준 — 85데시벨·3년·40데시벨은 무엇을 뜻하나요?', href: '/posts/noise-hearing-loss-disability-benefit/', where: '이 사이트' },
       { title: '소음성 난청 산재, 퇴직하고 몇 년이 지나도 장해급여를 받을 수 있나요?', href: `${BLOG}/noise-induced-hearing-loss-disability-benefit/`, where: '개인 블로그' },
     ],
   },
