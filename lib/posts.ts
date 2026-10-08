@@ -101,6 +101,7 @@ export const topics: Topic[] = [
     id: 'benefit', label: '보험급여·장해등급', lead: '요양·휴업·장해·유족급여, 무엇을 얼마나 받나', kind: 'process', jobs: [],
     reads: [
       { title: '혼인신고를 안 했거나 따로 살았다면 — 산재 유족급여는 누가 받나요?', href: '/posts/survivor-benefit-de-facto-spouse-separated-parents/', where: '이 사이트' },
+      { title: '산재 유족연금은 한 달에 얼마인가요? — 평균임금 계산과 반액 일시금 선택', href: '/posts/survivor-pension-amount-calculation-half-lump-sum/', where: '이 사이트' },
       { title: '산재 보상에는 어떤 급여가 있고 얼마나 받나 — 산재 가이드 3·4절', href: '/guide/#benefits', where: '이 사이트' },
       R_DEATH,
     ],
