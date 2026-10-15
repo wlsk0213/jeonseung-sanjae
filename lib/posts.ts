@@ -42,6 +42,28 @@ const R_FAMILY: TopicRead = { title: '가족을 잃으셨다면 — 유족급여
 const R_DEATH: TopicRead = { title: '산재 사망 유족급여·장의비 청구 방법 — 신청 절차와 청구기한', href: `${BLOG}/sanjae-death-survivor-benefit/`, where: '개인 블로그' };
 const R_FIRST: TopicRead = { title: '산재가 처음이신가요? — 산재 여부, 첫 할 일, 급여 종류, 기한', href: '/guide/', where: '이 사이트' };
 
+/**
+ * 유족 트랙 — 가족을 잃은 유족이 읽는 순서(사고 직후 → 장례 → 수급권자 → 금액 → 회사 합의).
+ * /family/ 「유족이 읽는 순서」, /topics/benefit/ 함께 읽을 글, 각 유족 글 하단 목록이 모두 이 배열을 쓴다.
+ * 새 유족 글을 배포하면 여기 한 줄만 추가한다.
+ */
+export interface TrackItem {
+  step: string; // 표시용 단계 이름
+  title: string;
+  href: string;
+}
+export const survivorTrack: TrackItem[] = [
+  { step: '사고 직후', title: '산재 사망 사고 직후, 유족이 먼저 할 일은 무엇인가요? — 서명 전 확인과 첫 2주의 기록', href: '/posts/fatal-accident-first-steps-for-family/' },
+  { step: '장례비', title: '산재 장례비는 누가 얼마를 받나요? — 2026년 최고·최저 금액, 선지급, 회사가 낸 장례비', href: '/posts/funeral-expenses-who-claims-amount-advance-payment/' },
+  { step: '누가 받나', title: '혼인신고를 안 했거나 따로 살았다면 — 산재 유족급여는 누가 받나요?', href: '/posts/survivor-benefit-de-facto-spouse-separated-parents/' },
+  { step: '얼마인가', title: '산재 유족연금은 한 달에 얼마인가요? — 평균임금 계산과 반액 일시금 선택', href: '/posts/survivor-pension-amount-calculation-half-lump-sum/' },
+  { step: '회사 합의', title: '회사 합의금을 받으면 산재 유족급여가 줄어드나요? — 공제되는 돈과 합의서에서 볼 것', href: '/posts/company-settlement-and-survivor-benefit-offset/' },
+];
+export function inSurvivorTrack(slug: string): boolean {
+  return survivorTrack.some((t) => t.href === `/posts/${slug}/`);
+}
+const TRACK_READS: TopicRead[] = survivorTrack.map((t) => ({ title: t.title, href: t.href, where: '이 사이트' }));
+
 /** 메뉴 2 「내 병은 어디에 해당하나요?」 — 상병 8 + 절차 2. 글의 topic은 여기 id와 일치해야 한다. */
 export const topics: Topic[] = [
   {
@@ -100,8 +122,8 @@ export const topics: Topic[] = [
   {
     id: 'benefit', label: '보험급여·장해등급', lead: '요양·휴업·장해·유족급여, 무엇을 얼마나 받나', kind: 'process', jobs: [],
     reads: [
-      { title: '혼인신고를 안 했거나 따로 살았다면 — 산재 유족급여는 누가 받나요?', href: '/posts/survivor-benefit-de-facto-spouse-separated-parents/', where: '이 사이트' },
-      { title: '산재 유족연금은 한 달에 얼마인가요? — 평균임금 계산과 반액 일시금 선택', href: '/posts/survivor-pension-amount-calculation-half-lump-sum/', where: '이 사이트' },
+      ...TRACK_READS,
+      R_FAMILY,
       { title: '산재 보상에는 어떤 급여가 있고 얼마나 받나 — 산재 가이드 3·4절', href: '/guide/#benefits', where: '이 사이트' },
       R_DEATH,
     ],

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getAllPosts, getPost, postsByTopic, fmtDate, topicLabel, site } from '@/lib/posts';
+import { getAllPosts, getPost, postsByTopic, fmtDate, topicLabel, site, survivorTrack, inSurvivorTrack } from '@/lib/posts';
 import { personBase } from '@/lib/person';
 
 export function generateStaticParams() {
@@ -26,7 +26,11 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   const p = getPost(slug);
   if (!p) notFound();
   const url = `${site.url}/posts/${p.slug}/`;
-  const related = postsByTopic(p.topic).filter((x) => x.slug !== p.slug).slice(0, 3);
+  const isTrack = inSurvivorTrack(p.slug);
+  // 유족 트랙 글은 아래 「유족이 읽는 순서」에 모두 나오므로, 같은 상병 목록에서는 트랙 글을 뺀다.
+  const related = postsByTopic(p.topic)
+    .filter((x) => x.slug !== p.slug && !(isTrack && inSurvivorTrack(x.slug)))
+    .slice(0, 3);
 
   const articleJsonLd = {
     '@context': 'https://schema.org',
@@ -113,6 +117,26 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             이 글은 일반적인 정보 제공을 목적으로 작성되었으며, 개별 사안에 대한 법률 자문이 아닙니다. 작성기준일{' '}
             {fmtDate(p.date)}.
           </p>
+
+          {isTrack && (
+            <div className="related">
+              <h2>유족이 읽는 순서</h2>
+              <ol className="read-list">
+                {survivorTrack.map((t, i) => (
+                  <li key={t.href}>
+                    {t.href === `/posts/${p.slug}/` ? <b>{t.title}</b> : <Link href={t.href}>{t.title}</Link>}
+                    <span>
+                      {i + 1} · {t.href === `/posts/${p.slug}/` ? '지금 읽는 글' : t.step}
+                    </span>
+                  </li>
+                ))}
+                <li>
+                  <Link href="/family/">가족을 잃으셨다면 — 유족급여·장례비 청구와 지금 남겨 둘 것</Link>
+                  <span>유족 가이드</span>
+                </li>
+              </ol>
+            </div>
+          )}
 
           {related.length > 0 && (
             <div className="related">

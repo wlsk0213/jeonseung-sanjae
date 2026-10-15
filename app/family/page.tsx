@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { site } from '@/lib/posts';
+import { site, survivorTrack } from '@/lib/posts';
 
 export const metadata: Metadata = {
   title: '가족을 잃으셨다면? — 산재보상 유족 가이드',
@@ -143,6 +143,20 @@ export default function FamilyPage() {
               나중에 다투기 어려워질 수 있으니 서명 전에 확인해 보시기 바랍니다.
             </p>
           </article>
+
+          <div className="related">
+            <h2>유족이 읽는 순서</h2>
+            <ol className="read-list">
+              {survivorTrack.map((t, i) => (
+                <li key={t.href}>
+                  <Link href={t.href}>{t.title}</Link>
+                  <span>
+                    {i + 1} · {t.step}
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </div>
 
           <div className="post-faq">
             <h2>자주 묻는 질문</h2>
