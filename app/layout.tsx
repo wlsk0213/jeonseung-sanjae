@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import Link from 'next/link';
 import './globals.css';
 import { site, menus, diseaseTopics, jobs } from '@/lib/posts';
-import { personBase } from '@/lib/person';
+import { personBase, PERSON_CREDENTIALS } from '@/lib/person';
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -40,7 +40,7 @@ const orgJsonLd = {
   },
   areaServed: '대한민국',
   serviceType: ['산재 최초 청구', '유족급여·장례비 청구', '장해급여 청구', '산재 불승인 심사청구·재심사청구', '직업성 암·소음성 난청·근골격계 질환·뇌심혈관 질환 산재'],
-  founder: personBase,
+  founder: { ...personBase, hasCredential: PERSON_CREDENTIALS },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

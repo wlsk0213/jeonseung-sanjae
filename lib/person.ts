@@ -35,3 +35,19 @@ export const personBase = {
   worksFor: { '@type': 'LegalService', name: '노무법인 전승', url: 'https://jeonseung.co.kr' },
   sameAs: PERSON_SAME_AS,
 } as const;
+
+// 자격·이수 교육 — 허브 lib/site.ts의 quals(4개) + trainingCredentials, 법인 홈 lib/person.ts의 PERSON_CREDENTIALS 와 같은 내용·순서.
+// 자격이나 수료가 늘면 허브 → 법인 홈 → 이 파일 순으로 함께 고친다. 수료번호는 넣지 않는다(대표 지시 2026-10-23).
+export const PERSON_CREDENTIALS = [
+  ...['공인노무사', '산업안전기사', 'ISO45001 심사원', 'ESG 심사원'].map((q) => ({
+    '@type': 'EducationalOccupationalCredential',
+    name: q,
+  })),
+  {
+    '@type': 'EducationalOccupationalCredential',
+    name: '제4기 직장 내 괴롭힘 조사실무과정(법률전문가) 수료',
+    credentialCategory: 'certificate',
+    recognizedBy: { '@type': 'Organization', name: '한국고용노동교육원' },
+    dateCreated: '2026-10-20',
+  },
+];
