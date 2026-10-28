@@ -180,7 +180,9 @@ function toIso(v: unknown): string {
 
 function load(file: string): Post {
   const raw = fs.readFileSync(path.join(dir, file), 'utf8');
-  const { data, content } = matter(raw);
+  const { data, content: rawContent } = matter(raw);
+  // 페이지 제목(h1)은 레이아웃이 출력하므로 본문 첫머리의 "# 제목" 줄은 뺀다(네이버 사이트 진단 "H1 2개 이상" 대응, 10-29).
+  const content = rawContent.replace(/^\s*# [^\n]*\n/, '');
   const html = marked.parse(content, { async: false }) as string;
   const plain = content.replace(/[#>*|`_\-\n]/g, '');
   return {
