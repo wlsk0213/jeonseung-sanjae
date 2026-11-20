@@ -185,7 +185,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 {site.firm} · 천안 본사 {site.address} · 대표 전지나 · 사업자등록번호 657-88-02118
               </span>
               <span>
-                상담 {site.tel} · © {site.firm}
+                상담 {site.tel} · <a href="https://jeonseung.co.kr/privacy/">개인정보 처리방침</a> · © {site.firm}
               </span>
             </div>
           </div>
